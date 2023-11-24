@@ -989,6 +989,12 @@ class REST(object):
                                        raw=True))
         return NewsListV2(news)
 
+    def get_crypto_snapshot(self, symbol: str, exchange: str) -> SnapshotV2:
+        resp = self.data_get('/crypto/{}/snapshot'.format(symbol),
+                             data={'exchange': exchange},
+                             api_version='v1beta1')
+        return self.response_wrapper(resp, SnapshotV2)
+
     def get_clock(self) -> Clock:
         resp = self.get('/clock')
         return self.response_wrapper(resp, Clock)
